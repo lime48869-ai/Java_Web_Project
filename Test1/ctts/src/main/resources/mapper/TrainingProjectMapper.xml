@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace 必须等于对应 Mapper 接口的全限定名 -->
+<mapper namespace="com.ctts.mapper.TrainingProjectMapper">
+
+    <!-- resultMap：字段与属性的映射 -->
+    <resultMap id="BaseResultMap" type="com.ctts.entity.TrainingProject">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="description" property="description"/>
+        <result column="teacher_id" property="teacherId"/>
+        <result column="start_date" property="startDate"/>
+        <result column="end_date" property="endDate"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <!-- 通用字段片段 -->
+    <sql id="Base_Column_List">
+        id, title, description, teacher_id, start_date, end_date, status, create_time, update_time
+    </sql>
+
+    <!-- 按状态查询（1待发布 2进行中 3已结束 4已下线） -->
+    <select id="selectByStatus" resultMap="BaseResultMap" parameterType="int">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM training_project
+        WHERE status = #{status}
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 按教师ID查询 -->
+    <select id="selectByTeacherId" resultMap="BaseResultMap" parameterType="long">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM training_project
+        WHERE teacher_id = #{teacherId}
+        ORDER BY start_date DESC
+    </select>
+
+    <!-- 按主键查询（自定义） -->
+    <select id="selectByIdCustom" resultMap="BaseResultMap" parameterType="long">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM training_project
+        WHERE id = #{id}
+    </select>
+
+    <!-- 新增项目（XML实现，返回自增主键） -->
+    <insert id="insertByXml" parameterType="com.ctts.entity.TrainingProject"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO training_project(title, description, teacher_id, start_date, end_date, status)
+        VALUES (#{title}, #{description}, #{teacherId}, #{startDate}, #{endDate}, #{status})
+    </insert>
+
+    <!-- 按状态统计数量 -->
+    <select id="countByStatus" resultType="long" parameterType="int">
+        SELECT COUNT(*)
+        FROM training_project
+        WHERE status = #{status}
+    </select>
+
+</mapper>
