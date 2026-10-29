@@ -132,7 +132,7 @@ public class MapperCrudTest {
     // ===== training_project XML 自定义查询 =====
 
     @Test
-    public void testSelectByStatus() {
+    public void testProjectSelectByStatus() {
         List<TrainingProject> doing = projectMapper.selectByStatus(2);  // status=2 进行中
         System.out.println("进行中的项目数 = " + doing.size());
         doing.forEach(p -> assertEquals(2, p.getStatus()));

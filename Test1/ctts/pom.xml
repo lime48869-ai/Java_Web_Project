@@ -35,7 +35,7 @@
             <version>${knife4j.version}</version>
         </dependency>
 
-        <!-- MyBatis-Plus（CTTS 已有） -->
+        <!-- MyBatis-Plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
