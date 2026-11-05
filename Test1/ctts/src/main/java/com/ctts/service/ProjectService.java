@@ -1,10 +1,17 @@
 package com.ctts.service;
 
 import com.ctts.entity.Project;
+
 import java.util.List;
 
+/**
+ * 实训项目业务接口
+ */
 public interface ProjectService {
-    List<Project> list(String keyword, int page, int size);
+
+    List<Project> getAllProjects();
     Project getById(Long id);
-    Project add(Project project);
+    void save(Project project);
+
+    List<Project> getByTitle(String title);
 }

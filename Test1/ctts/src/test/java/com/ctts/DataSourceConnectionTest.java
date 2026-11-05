@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
+ * 【超前内容】本测试类为数据源连接验证的扩展练习，
+ * 当前老师主线测试类为 CttsApplicationTests，本文件保留备查。
+ *
  * 数据库连接验证测试类
  * 运行 testConnection()，若能获取 Connection 并打印数据库元数据，则说明数据源配置正确
  */

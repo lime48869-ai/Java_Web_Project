@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
+ * 【超前内容】本文件为早期实训项目实体练习，当前主线已统一使用
+ * entity.Project（对应 training_project 表），本文件保留备查。
+ *
  * 实训项目实体类
  * 对应数据库表 training_project
  */

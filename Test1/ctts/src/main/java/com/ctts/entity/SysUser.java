@@ -10,6 +10,9 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
+ * 【超前内容】本文件为后续"用户/权限"模块的扩展练习，
+ * 当前老师主线（Project/Task）暂未涉及，保留备查。
+ *
  * 系统用户实体类
  * 对应数据库表 sys_user
  */

@@ -1,46 +1,14 @@
-server:
-  port: 8080
-  servlet:
-    context-path: /api
-
-spring:
-  application:
-    name: ctts
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ctts?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: root123456
-    # HikariCP 连接池配置
-    hikari:
-      minimum-idle: 5            # 最小空闲连接数
-      maximum-pool-size: 20      # 最大连接数
-      connection-timeout: 30000  # 连接超时时间（毫秒）
-      idle-timeout: 600000       # 空闲连接超时（毫秒）
-      max-lifetime: 1800000      # 连接最大存活时间（毫秒）
-
-# ========== MyBatis-Plus 配置 ==========
-mybatis-plus:
-  # XML 映射文件扫描路径
-  mapper-locations: classpath:mapper/*.xml
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    map-underscore-to-camel-case: true
-  global-config:
-    db-config:
-      id-type: AUTO             # 主键策略：数据库自增
-
-# Knife4j 配置
+# springdoc-openapi项目配置
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
-    tags-sorter: alpha           # 标签字母排序
-    operations-sorter: alpha     # 接口字母排序
+    tags-sorter: alpha
+    operations-sorter: alpha
   api-docs:
     path: /v3/api-docs
   group-configs:
-    - group: default
-      paths-to-match: /api/**
+    - group: 'default'
+      paths-to-match: '/**'
       packages-to-scan: com.ctts.controller
 
 # Knife4j 增强配置
@@ -55,7 +23,7 @@ knife4j:
     enable-filter-multipart-apis: false
     enable-request-cache: true
     enable-host: false
-    enable-host-text: 192.168.1.1:8080
+    enable-host-text: localhost:8080
     enable-home-custom: false
     home-custom-path: classpath:markdown/home.md
     enable-search: false
@@ -72,9 +40,3 @@ knife4j:
     enable: false                # 是否开启 basic 认证
     username: admin
     password: 123456
-
-# ========== 日志配置 ==========
-logging:
-  level:
-    com.ctts: debug
-    com.baomidou.mybatisplus: debug

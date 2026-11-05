@@ -14,6 +14,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
+ * 【超前内容】本测试类为 sys_user / training_project 持久层 CRUD 的扩展练习，
+ * 当前老师主线（Project/Task）暂未涉及，保留备查。
+ *
  * CTTS 持久层 CRUD 验证测试类
  * 验证 sys_user 与 training_project 两张表的 Mapper 接口与 SQL 映射
  */

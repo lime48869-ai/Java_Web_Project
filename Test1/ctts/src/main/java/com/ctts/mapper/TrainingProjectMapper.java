@@ -6,6 +6,9 @@ import com.ctts.entity.TrainingProject;
 import java.util.List;
 
 /**
+ * 【超前内容】本文件为早期实训项目 Mapper 练习，当前主线已统一使用
+ * mapper.ProjectMapper，本文件保留备查。
+ *
  * 实训项目 Mapper 接口
  * - 继承 BaseMapper<TrainingProject> 获得内置 CRUD
  * - 自定义方法用 XML SQL 实现（见 resources/mapper/TrainingProjectMapper.xml）
@@ -26,4 +29,5 @@ public interface TrainingProjectMapper extends BaseMapper<TrainingProject> {
 
     /** 按状态统计项目数量 */
     long countByStatus(Integer status);
+
 }

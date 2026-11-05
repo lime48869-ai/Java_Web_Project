@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
+ * 【超前内容】本测试类为 JDBC 完整流程的扩展练习，
+ * 当前老师主线测试类为 CttsApplicationTests，本文件保留备查。
+ *
  * JDBC 完整示例：查询 sys_user 表所有用户
  * 演示 JDBC 核心六步流程
  */
@@ -29,23 +32,23 @@ public class JdbcQueryDemo {
         }
 
         // ========== 步骤2~6：try-with-resources 自动关闭资源 ==========
-        // 资源声明顺序：Connection → PreparedStatement → ResultSet
-        String sql = "SELECT id, username, password, name, role, phone, create_time FROM sys_user";
+        String sql = "SELECT id, username, real_name, phone, email, status, create_time FROM sys_user";
 
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);   // 步骤2：获取连接
              PreparedStatement pstmt = conn.prepareStatement(sql);                  // 步骤3：创建PreparedStatement
              ResultSet rs = pstmt.executeQuery()) {                                // 步骤4：执行SQL
 
             // ========== 步骤5：处理结果集 ==========
-            System.out.println("ID\t用户名\t姓名\t角色\t电话");
+            System.out.println("ID\t用户名\t姓名\t电话\t邮箱\t状态");
             System.out.println("─────────────────────────────────────");
             while (rs.next()) {
                 Long id = rs.getLong("id");
                 String username = rs.getString("username");
-                String name = rs.getString("name");
-                String role = rs.getString("role");
+                String realName = rs.getString("real_name");
                 String phone = rs.getString("phone");
-                System.out.printf("%d\t%s\t%s\t%s\t%s%n", id, username, name, role, phone);
+                String email = rs.getString("email");
+                Integer status = rs.getInt("status");
+                System.out.printf("%d\t%s\t%s\t%s\t%s\t%d%n", id, username, realName, phone, email, status);
             }
         } catch (SQLException e) {
             System.err.println("数据库操作异常：" + e.getMessage());

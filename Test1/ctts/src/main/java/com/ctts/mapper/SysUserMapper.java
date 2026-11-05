@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 /**
+ * 【超前内容】本文件为后续"用户/权限"模块的扩展练习，
+ * 当前老师主线（Project/Task）暂未涉及，保留备查。
+ *
  * 系统用户 Mapper 接口
  * - 继承 BaseMapper<SysUser> 获得内置 CRUD
  * - 自定义方法用 @Select 注解 SQL 实现

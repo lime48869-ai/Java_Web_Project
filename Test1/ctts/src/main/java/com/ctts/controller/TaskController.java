@@ -1,5 +1,7 @@
 package com.ctts.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ctts.common.Result;
 import com.ctts.dto.TaskDTO;
 import com.ctts.entity.Task;
@@ -17,19 +19,11 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    /**
-     * 查询任务列表
-     * GET /tasks
-     */
     @GetMapping
     public Result<List<Task>> getTasks() {
         return Result.success(taskService.getTasks());
     }
 
-    /**
-     * 新增任务
-     * POST /tasks
-     */
     @PostMapping
     public Result<String> addTask(@RequestBody TaskDTO taskDTO) {
         Task task = new Task();
@@ -38,19 +32,11 @@ public class TaskController {
         return Result.success("添加成功");
     }
 
-    /**
-     * 根据ID查询任务
-     * GET /tasks/{id}
-     */
     @GetMapping("/{id}")
     public Result<Task> getTask(@PathVariable Long id) {
         return Result.success(taskService.getById(id));
     }
 
-    /**
-     * 修改任务
-     * PUT /tasks/{id}
-     */
     @PutMapping("/{id}")
     public Result<String> updateTask(@PathVariable Long id, @RequestBody TaskDTO taskDTO) {
         Task task = new Task();
@@ -60,13 +46,33 @@ public class TaskController {
         return Result.success("修改成功");
     }
 
-    /**
-     * 删除任务
-     * DELETE /tasks/{id}
-     */
     @DeleteMapping("/{id}")
     public Result<String> deleteTask(@PathVariable Long id) {
         taskService.deleteById(id);
         return Result.success("删除成功");
     }
+
+    @GetMapping("/options")
+    public Result<List<Task>> getTasksByOptions(@RequestParam(required = false) Long projectId,
+                                                @RequestParam(required = false) Integer status,
+                                                @RequestParam(required = false) String title) {
+        return Result.success(taskService.getTasksByOptions(projectId, status, title));
+    }
+
+    @GetMapping("/status")
+    public Result<List<Task>> getTasksByStatusList(@RequestParam List<Integer> statusList) {
+        return Result.success(taskService.getTasksByStatusList(statusList));
+    }
+
+    @PostMapping("/getByOptions")
+    public Result<List<Task>> getTasksByOptions(@RequestBody TaskDTO taskDTO) {
+        return Result.success(taskService.getByOptions(taskDTO));
+    }
+
+    @GetMapping("/page")
+    public Result<IPage<Task>> getTasksByPage(@RequestParam int pageNum, @RequestParam int pageSize) {
+        IPage<Task> page = new Page<>(pageNum, pageSize);
+        return Result.success(taskService.getTasksByPage(page));
+    }
+
 }

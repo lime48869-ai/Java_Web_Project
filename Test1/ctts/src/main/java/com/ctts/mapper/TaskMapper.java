@@ -1,16 +1,22 @@
 package com.ctts.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.ctts.dto.TaskDTO;
 import com.ctts.entity.Task;
+import org.apache.ibatis.annotations.Param;
 
-/**
- * 任务 Mapper 接口
- * 继承 BaseMapper<Task> 获得内置 CRUD
- */
+import java.util.List;
+
 public interface TaskMapper extends BaseMapper<Task> {
-
-    /**
-     * 按ID查询任务（XML 自定义实现）
-     */
     Task getById(Long id);
+
+    List<Task> selectByOptions(@Param("projectId") Long projectId, @Param("status") Integer status, @Param("title") String title);
+
+    List<Task> selectByStatusList(@Param("statusList") List<Integer> statusList);
+
+    List<Task> selectTaskByOptions(@Param("taskDTO") TaskDTO taskDTO);
+
+    IPage<Task> selectPageVo(IPage<?> page);
+
 }
