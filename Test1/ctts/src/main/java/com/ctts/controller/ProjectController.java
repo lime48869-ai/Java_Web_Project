@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +47,8 @@ public class ProjectController {
      * 新增项目
      */
     @PostMapping
-    public Result<String> createProject(@RequestBody ProjectDTO projectDTO) {
+    @Operation(summary = "新增项目")
+    public Result<String> createProject(@Valid @RequestBody ProjectDTO projectDTO) {
         Project project = new Project();
         BeanUtils.copyProperties(projectDTO, project);
         projectService.save(project);
@@ -57,6 +59,7 @@ public class ProjectController {
      * 按ID查询项目
      */
     @GetMapping("/{id}")
+    @Operation(summary = "按ID查询项目")
     public Result<Project> project(@PathVariable Long id) {
         return Result.success(projectService.getById(id));
     }
@@ -65,8 +68,19 @@ public class ProjectController {
      * 按标题模糊查询项目
      */
     @GetMapping("/title")
+    @Operation(summary = "按标题模糊查询项目")
     public Result<List<Project>> getByTitle(@RequestParam String title) {
         return Result.success(projectService.getByTitle(title));
+    }
+
+    /**
+     * 删除项目，并级联删除该项目下的所有任务
+     */
+    @DeleteMapping("/{id}/cascade")
+    @Operation(summary = "删除项目并级联删除其任务")
+    public Result<String> deleteCascade(@PathVariable Long id) {
+        projectService.deleteCascade(id);
+        return Result.success("删除成功");
     }
 
 }
